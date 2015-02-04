@@ -1,3 +1,16 @@
+# all
+*
+#  but not
+!src/
+!gradle/
+!gradlew
+!gradlew.bat
+!README.md
+!LICENSE
+!build.gradle
+!/.gitignore
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
