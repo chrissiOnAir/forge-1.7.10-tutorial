@@ -1,8 +1,8 @@
 # all
 *
 #  but not
-!src/
-!gradle/
+!src
+!gradle
 !gradlew
 !gradlew.bat
 !README.md
