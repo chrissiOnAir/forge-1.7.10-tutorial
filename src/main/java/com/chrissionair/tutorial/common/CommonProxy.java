@@ -7,6 +7,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 
 import com.chrissionair.tutorial.Tutorial;
 
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -28,7 +29,8 @@ public class CommonProxy {
 				"A  ", " B ", "  C", 'A', Blocks.log, 'B', Blocks.leaves, 'C', Items.gold_ingot
 		});
 		
-		FurnaceRecipes.smelting().func_151393_a(Blocks.log, new ItemStack(Blocks.planks), 0.35f);
+		// FurnaceRecipes.smelting().func_151393_a(Blocks.leaves, new ItemStack(Items.gold_ingot), 0.35f);
+		GameRegistry.addSmelting(Blocks.leaves, new ItemStack(Items.gold_ingot), 0.35f);
 		
 		for (int i = 0; i < 3; i++) {
 			ItemStack wool = new ItemStack(Blocks.wool, 1, i);
@@ -45,13 +47,13 @@ public class CommonProxy {
 	
 	public void preInit() {
 		// register my Items, Blocks, Entities, etc
-		
-		loadRecipes();
-		
+			
 	}
 	  
 	public void init() {
+		// theoretisch könnte das FMLInitializationEvent event mitgegeben werden, aber wozu?
 		// register my Recipies
+		loadRecipes();
 	}
 	  
 	public void postInit() {

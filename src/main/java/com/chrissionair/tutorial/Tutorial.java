@@ -13,10 +13,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.BiomeManager.BiomeEntry;
+import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.chrissionair.tutorial.common.CommonProxy;
@@ -49,6 +50,7 @@ public class Tutorial
     public static CommonProxy proxy;
     
     public static CreativeTabs tutorialTab = new TutorialTab(CreativeTabs.getNextID(), "tutorialTab");
+    // wozu TutorialTabBlocks(), wenn man TutorialTab() verwenden kann? --> wegen getTabIconItem()
     public static CreativeTabs tutorialTabBlocks = new TutorialTabBlocks(CreativeTabs.getNextID(), "tutorialTabBlocks");
   
     public static Item tutorialShears;
@@ -84,6 +86,7 @@ public class Tutorial
 		GameRegistry.registerItem(tutorialApple, tutorialApple.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(tutorialIngot, tutorialIngot.getUnlocalizedName().substring(5));
 		
+		// tutorialGrass mit falschen Seiten-Texturen !
 		tutorialGrass = new TutorialGrass().setHardness(0.6F).setStepSound(Block.soundTypeGrass).setBlockName("tutorialGrass").setBlockTextureName(MODID + ":" + MODID + "_grass");
 		tutorialDirt = new TutorialBlock(Material.ground).setHardness(0.5F).setStepSound(Block.soundTypeGravel).setBlockName("tutorialDirt").setBlockTextureName(MODID + ":" + MODID + "_dirt");
 		tutorialDirt.setHarvestLevel("shovel", 0);		
@@ -113,10 +116,10 @@ public class Tutorial
 				
 		GameRegistry.registerWorldGenerator(tutorialWorldGenerator, 0);
 		
-		// tutorialBiome = (new BiomeGenPlains(100)).setColor(9286496).setBiomeName("TutorialBiome");
+		// funzt :)
 		tutorialBiome = (new BiomeGenTutorial(100)).setBiomeName("TutorialBiome").setColor(0x893F8B).setHeight(new BiomeGenBase.Height(0.1F, 0.5F)).setTemperatureRainfall(0.9F, 0.9F);
-		
-		BiomeDictionary.registerBiomeType(tutorialBiome, Type.PLAINS);
+		BiomeDictionary.registerBiomeType(tutorialBiome, Type.HILLS);
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(tutorialBiome, 15));
 		
 		// forest, plains, taiga, taigaHills, forestHills, jungle, jungleHills
 		BiomeManager.addSpawnBiome(tutorialBiome);
@@ -130,7 +133,7 @@ public class Tutorial
 		BiomeManager.removeSpawnBiome(taiga);
 		/*
 		for (int i = 0; i < WorldChunkManager.allowedBiomes.size(); i++) {
-			System.out.println(WorldChunkManager.allowedBiomes.get(i).biomeName);
+			System.out.println("SPAWN_BIOMES:   " + WorldChunkManager.allowedBiomes.get(i).biomeName);
 		}
 		*/
 		
@@ -138,7 +141,13 @@ public class Tutorial
 		MinecraftForge.EVENT_BUS.register(new Tutorial_Bonemeal_Event());
 		
 		MinecraftForge.TERRAIN_GEN_BUS.register(new Tutorial_Decorate_Event());
-		//MinecraftForge.TERRAIN_GEN_BUS.register(new Tutorial_Biome_Event());
+		
+		/*
+		*	diese Variante funzt, obwohl es sich noch um ältere GenLayerBiomeTutorial handelt
+		*	2 Dateien verknüpft: Tutorial_Biome_Event; GenLayerBiomeTutorial
+		*	
+		*	MinecraftForge.TERRAIN_GEN_BUS.register(new Tutorial_Biome_Event());
+		*/
 		
 		// base color in Block ist FFFFFF = weiss!
 		//System.out.println(Integer.toHexString(16777215));
@@ -149,7 +158,8 @@ public class Tutorial
 	}
 
 	@EventHandler
-	public void load(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
+		// theoretisch könnte das FMLInitializationEvent event mitgegeben werden, aber wozu?
 	    proxy.init();
 	    
 	    

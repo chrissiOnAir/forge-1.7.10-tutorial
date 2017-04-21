@@ -52,6 +52,7 @@ public class TutorialSapling01 extends BlockBush implements IGrowable
         this.setCreativeTab(Tutorial.tutorialTabBlocks);
     }
 
+    // decaying of leaves
     /**
      * Ticks the block if it's been scheduled
      */
@@ -78,6 +79,7 @@ public class TutorialSapling01 extends BlockBush implements IGrowable
         return field_149881_b[MathHelper.clamp_int(p_149691_2_, 0, 5)];
     }
 
+    // bitshift 8 wird für Wachstum erwendet?
     public void func_149879_c(World p_149879_1_, int p_149879_2_, int p_149879_3_, int p_149879_4_, Random p_149879_5_)
     {
         int l = p_149879_1_.getBlockMetadata(p_149879_2_, p_149879_3_, p_149879_4_);
@@ -92,6 +94,7 @@ public class TutorialSapling01 extends BlockBush implements IGrowable
         }
     }
 
+    // Baum soll wachsen
     public void func_149878_d(World p_149878_1_, int p_149878_2_, int p_149878_3_, int p_149878_4_, Random p_149878_5_)
     {
         if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_)) return;

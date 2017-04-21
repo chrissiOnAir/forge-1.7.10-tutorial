@@ -13,22 +13,22 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TutorialGrass extends Block implements IGrowable
 {
-    private static final Logger logger = LogManager.getLogger();
+    // private static final Logger logger = LogManager.getLogger();
     @SideOnly(Side.CLIENT)
     private IIcon field_149991_b;
     @SideOnly(Side.CLIENT)
     private IIcon field_149993_M;
     @SideOnly(Side.CLIENT)
     private static IIcon field_149994_N;
-    private static final String __OBFID = "CL_00000251";
+    // private static final String __OBFID = "CL_00000251";
 
     protected TutorialGrass()
     {
@@ -47,6 +47,7 @@ public class TutorialGrass extends Block implements IGrowable
         return p_149691_1_ == 1 ? this.field_149991_b : (p_149691_1_ == 0 ? Tutorial.tutorialDirt.getBlockTextureFromSide(p_149691_1_) : this.blockIcon);
     }
 
+    // dirt zu grass nach einer Weile
     /**
      * Ticks the block if it's been scheduled
      */
@@ -95,14 +96,17 @@ public class TutorialGrass extends Block implements IGrowable
     @Override
     public IIcon getIcon(IBlockAccess p_149673_1_, int p_149673_2_, int p_149673_3_, int p_149673_4_, int p_149673_5_)
     {
+    	// oben: b&w
         if (p_149673_5_ == 1)
         {
             return this.field_149991_b;
         }
+        // unten: ?
         else if (p_149673_5_ == 0)
         {
             return Tutorial.tutorialDirt.getBlockTextureFromSide(p_149673_5_);
         }
+        // seite: farbig
         else
         {
             Material material = p_149673_1_.getBlock(p_149673_2_, p_149673_3_ + 1, p_149673_4_).getMaterial();
@@ -115,8 +119,10 @@ public class TutorialGrass extends Block implements IGrowable
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
         this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
+        // top texture is b&w
         this.field_149991_b = p_149651_1_.registerIcon(this.getTextureName() + "_top");
         this.field_149993_M = p_149651_1_.registerIcon(this.getTextureName() + "_side_snowed");
+        // side_overlay texture is b&w
         this.field_149994_N = p_149651_1_.registerIcon(this.getTextureName() + "_side_overlay");
     }
 
@@ -139,6 +145,7 @@ public class TutorialGrass extends Block implements IGrowable
         return this.getBlockColor();
     }
 
+    // "bitshift operations"
     /**
      * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
      * when first determining what to render.
@@ -171,6 +178,7 @@ public class TutorialGrass extends Block implements IGrowable
         return field_149994_N;
     }
 
+    // Blumen oder tallgrass bei world generation
     public void func_149853_b(World p_149853_1_, Random p_149853_2_, int p_149853_3_, int p_149853_4_, int p_149853_5_)
     {
         int l = 0;

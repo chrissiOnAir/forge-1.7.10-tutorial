@@ -23,7 +23,7 @@ public class TutorialSaplingItem extends ItemBlock {
     @Override
     public IIcon getIconFromDamage(int par1)
     {
-    	// this.Block.getIcon
+    	// this.Block.getIcon(side, meta)
         return this.field_150939_a.func_149735_b(2, par1);
     }
 	

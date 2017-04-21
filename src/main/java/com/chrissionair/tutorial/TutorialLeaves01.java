@@ -34,16 +34,26 @@ public class TutorialLeaves01 extends BlockLeaves
     	// blue: 0000FF
     	// red: FF0000
     	
-    	// return ColorizerFoliage.getFoliageColorBasic();
-        // return (p_149741_1_ & 3) == 0 ? 0xFFFFFF : ((p_149741_1_ & 3) == 1 ? 0xFFFFFF : 0xFFFFFF);
-    	/*
+    	// errechnet Int auf Basis temperature und rainfall (ohne Rot)
+    	// return ColorizerFoliage.getFoliageColor();
+    	
+    	/* Hex Werte:
     	String hex = "2A"; //The answer is 42  
     	int intValue = Integer.parseInt(hex, 16); 
     	String hex = Integer.toHexString(42);
     	*/
-    	//System.out.println(Integer.toHexString(ColorizerFoliage.getFoliageColorBasic()));
-    	//System.out.println(Integer.parseInt("80a755", 16));
-    	// super.getRenderColor(p_149741_1_)
+    	
+    	/* Verschiebung Rot Grün Blau - Werte (0-255)
+    	 * 16711680 = 11111111 00000000 00000000 (2 hoch 24) - (2 hoch 16)
+    	 * 
+        (colorInt & 16711680) >> 16;
+        (colorInt & 65280) >> 8;
+        colorInt & 255;
+        
+    	int colorInt = 6396257;
+    	System.out.println(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>COLOR " + ((colorInt & 16711680) >> 16) + ":" + ((colorInt & 65280) >> 8) + ":" + (colorInt & 255));
+    	*/
+    	
     	return (p_149741_1_ & 3) == 0 ? 0xFFFFFF : ((p_149741_1_ & 3) == 1 ? 0x0000FF : super.getRenderColor(p_149741_1_));
     }
 
